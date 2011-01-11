@@ -1,0 +1,5 @@
+command: ssh-keygen 
+	to creat new key and keypub
+path:
+	/home/liu/.ssh/
+key and lock.
