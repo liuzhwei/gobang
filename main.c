@@ -55,6 +55,6 @@ int fb_one_pixel(int x,int y,u32_t color)
 int main(int argc, const char *argv[])
 {
     create_scr_fb();
-	fb_line(0,768,1023,7,0x00ff0000);
+	print_board();
     return 0;
 }
