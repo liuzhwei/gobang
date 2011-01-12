@@ -15,5 +15,7 @@ typedef struct
 }v_info_t;
 
 
+extern int  fb_line(int x1, int y1, int x2, int y2, u32_t color);
+extern int fb_one_pixel(int x,int y,u32_t color);
 
 #endif
