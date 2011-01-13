@@ -26,7 +26,7 @@ void swap(int *a, int *b)
 int  fb_line(int x1, int y1, int x2, int y2, u32_t color)
 {
 	int dx = x2-x1;
-	int dy = y2-y1;   // in common condition must be " dy < dx "
+	int dy = y2-y1;  
 	int inc = ((dx*dy > 0) ? 1 : -1); // one: from down to up
 	int p = 0;
 
@@ -59,7 +59,7 @@ int  fb_line(int x1, int y1, int x2, int y2, u32_t color)
 			}
 		}
 	}
-	else
+	else                 // three
 	{
 		if(dy < 0)
 		{
@@ -89,4 +89,50 @@ int  fb_line(int x1, int y1, int x2, int y2, u32_t color)
 	}
 	return 0;
 
+}
+
+
+/* *
+   * techer's drowing circle function
+   * */
+int fb_circle(int x0, int y0, int r, u32_t color)
+{
+	int x = 0;
+	int y = r;
+	int p = 3 - 2*r;
+	
+	while(x <= y)
+	{
+#if 0
+/*-------- we can draw a empty circle ------------*/
+		fb_one_pixel(x0+x, y0+y, color);
+		fb_one_pixel(x0+y, y0+x, color);
+		fb_one_pixel(x0+x, y0-y, color);
+		fb_one_pixel(x0+y, y0-x, color);
+		fb_one_pixel(x0-x, y0+y, color);
+		fb_one_pixel(x0-y, y0+x, color);
+		fb_one_pixel(x0-x, y0-y, color);
+		fb_one_pixel(x0-y, y0-x, color);
+/*-----------------------------------------------*/
+#endif
+
+/*---- we can draw a circle which filled by color ----*/
+		fb_line(x0+x, y0+y, x0-x, y0+y, color);
+		fb_line(x0+y, y0+x, x0-y, y0+x, color);
+		fb_line(x0+y, y0-x, x0-y, y0-x, color);
+		fb_line(x0+x, y0-y, x0-x, y0-y, color);
+/*----------------------------------------------------*/
+
+		if(p<0)
+		{
+			p += 4*x + 6;
+		}
+		else
+		{
+			p += 4*(x-y) + 10;
+			y--;
+		}
+		x++;
+	}
+	return 0;
 }
