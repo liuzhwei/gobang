@@ -116,12 +116,14 @@ int fb_circle(int x0, int y0, int r, u32_t color)
 /*-----------------------------------------------*/
 #endif
 
+#if 1
 /*---- we can draw a circle which filled by color ----*/
 		fb_line(x0+x, y0+y, x0-x, y0+y, color);
 		fb_line(x0+y, y0+x, x0-y, y0+x, color);
 		fb_line(x0+y, y0-x, x0-y, y0-x, color);
 		fb_line(x0+x, y0-y, x0-x, y0-y, color);
 /*----------------------------------------------------*/
+#endif
 
 		if(p<0)
 		{

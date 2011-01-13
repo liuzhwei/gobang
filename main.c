@@ -1,4 +1,4 @@
-#include <stdio.h>
+
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
@@ -54,27 +54,12 @@ int fb_one_pixel(int x,int y,u32_t color)
 }
 int main(int argc, const char *argv[])
 {
-	int i = 0, j = 0;
-	u32_t color;
 
     create_scr_fb();
-	drow_background(0x000000ff);
-	print_board();
-	for(i = 0; i < 24; i++)
-	{
-		for(j = 0;j < 30; j++)
-		{
-			if((j+i)%2 == 0)
-				color = 0x00ff0000;
-			else
-				color = 0x00ffff00;
-			find_location(100 + 30*j, 40 + 30*i,color);
-		}
-	}
-//	for(i = 0; i < 10; i++)
-	{
-		fb_circle(500,300,100, 0x00000000);
-	}
+	drow_background(0x00ffb5b5);
+	print_board(0x001874cd);
+
+	mouse_doing();
 
     return 0;
 }
