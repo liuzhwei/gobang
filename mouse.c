@@ -117,7 +117,6 @@ int mouse_doing(void)
 	int my = 384;
 
 	u32_t color;
-	char times = 1;
 
 	fd = open("/dev/input/mice",O_RDWR | O_NONBLOCK);
 	if(fd < 0)
@@ -150,23 +149,26 @@ int mouse_doing(void)
 
 			switch(mevent.button)
 			{
-				case 1:
+				case 1:                //lift button
 
 					if(point_state[correct_y(my)*Size_X + correct_x(mx)] != 0)
+					{
 						break;
-
-
-					if(times > 0)
-					{
-						color = 0x00000000;
-						times = -times;
-						who = 1;
 					}
-					else 
+					if(mx < 75 && mx > 25)
 					{
-						color = 0x00ffffff;
-						times = -times;
-						who = 2;
+						if(my < 125 && my > 75)
+						{
+							color = 0x0000000;
+							who = 1;
+							break;
+						}
+						if(my < 195 && my > 145)
+						{
+							color = 0x00ffffff;
+							who = 2;
+							break;
+						}
 					}
 					print_chessman(mx,my,13,color);
 					save_shape(mx,my);
