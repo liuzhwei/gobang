@@ -2,12 +2,6 @@
 #include <stdio.h>
 #include "main.h"
 
-#define Starting_X 100
-#define Starting_Y 40
-#define Space      30 
-#define Size_X     30
-#define Size_Y     24
-
 
 void print_board(u32_t color)
 {

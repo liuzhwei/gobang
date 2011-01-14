@@ -2,7 +2,7 @@
 
 
 
-scr = main.c basic_shape.c chessboard.c mouse.c
+scr = main.c basic_shape.c chessboard.c mouse.c check.c
 para = -Wall
 
 main:$(scr) 

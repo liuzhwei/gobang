@@ -17,7 +17,7 @@
 #define X__      0x00ff
 
 extern v_info_t fb_v;
-
+char who;
 
 static u32_t cursor_pixel[C_WIDTH * C_HEIGHT] = {
 	BORD, T__, T__, T__, T__, T__, T__, T__, T__, T__,
@@ -151,20 +151,33 @@ int mouse_doing(void)
 			switch(mevent.button)
 			{
 				case 1:
+
+					if(point_state[correct_y(my)*Size_X + correct_x(mx)] != 0)
+						break;
+
+
 					if(times > 0)
 					{
 						color = 0x00000000;
 						times = -times;
+						who = 1;
 					}
 					else 
 					{
 						color = 0x00ffffff;
 						times = -times;
+						who = 2;
 					}
 					print_chessman(mx,my,13,color);
 					save_shape(mx,my);
-					usleep(10);
+					sign_point(mx,my,who);
 					
+					if(check_all() != 0)
+					{
+						
+						return 0;
+					}
+					usleep(10);
 					break;
 				case 2:
 					
@@ -181,56 +194,3 @@ int mouse_doing(void)
 	}
 
 }
-
-#if 0
-
-/* *  
- * return mice device fd
- *  return: 0 --- read mouse success
- *	   1 --- error for read mouse
- * */
-int mouse_open(const char *mdev)
-{
-	if(mdev == NULL)
-		mdev = "/dev/input/mice";
-	return(open(mdev, O_RDWR | O_NONBLOCK));
-}
-
-#define READ_MOUSE 8
-int mouse_parse(int fd, mevent_t * mevent)
-{
-	s8_t buf[READ_MOUSE];
-	int n;
-	if((n = read(fd, buf, READ_MOUSE)) > 0)
-	{
-		/* * *
-		 * about n: 1. left key      2. right key
-		 *          3. middle key    4. no button key
-		 * */
-		mevent -> button = buf[0] & 0x07;
-
-		mevent -> dx = buf[1];
-		mevent -> dy = -buf[2];
-		mevent -> dz = buf[3];
-	}
-	else
-		return -1;
-	
-	return 0;
-}
-
-
-
-int mouse_darw(const pinfo_t fb, int x, int y)
-{
-	int i = 0, j = 0;
-
-	mouse_save(fb,x,y);
-
-	for(j = 0; j < C_HEIGHT; j++)
-		for(i = 0; i < C_WIDTH; i++)
-			if(cursor_pixel[i + j*C_WIDTH] != T__)
-				fb_pixel(fb, x+i, y+j)
-}
-
-#endif

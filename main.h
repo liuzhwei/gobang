@@ -3,6 +3,14 @@
 
 #include <stdio.h>
 
+
+#define Starting_X 100
+#define Starting_Y 40
+#define Space      30 
+#define Size_X     30
+#define Size_Y     24
+
+
 typedef unsigned int  u32_t;
 typedef unsigned char u8_t;
 
@@ -39,5 +47,12 @@ extern void print_chessman(int x, int y, int r, u32_t color);
 
 extern int mouse_doing(void);
 
+
+
+extern char point_state[Size_X * Size_Y];
+extern int correct_x(int x);
+extern int correct_y(int y);
+extern int sign_point(int x, int y, char a);
+extern int check_all(void);
 
 #endif
