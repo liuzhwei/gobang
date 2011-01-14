@@ -39,13 +39,13 @@ int check_five(int x, int y)
 	int counter = 1;
 	int i = 0;
 
-	if(point_state[x + y*Size_X] == 0)
-	{
-		return 0;
-	}
 	
 	for(i = 1; i < 5; i++)            // to right
-	{
+	{	
+		if(Size_X-x < 5)
+		{
+			break;
+		}
 		if(point_state[x + y*Size_X] == point_state[x + i + y*Size_X])
 		{
 			counter++;
@@ -63,6 +63,10 @@ int check_five(int x, int y)
 
 	for(i = 1; i < 5; i++)          // to down
 	{
+		if(Size_Y-y < 5)
+		{
+			break;
+		}
 		if(point_state[x + y*Size_X] == point_state[x + (y+i)*Size_X])
 		{
 			counter++;
@@ -80,6 +84,10 @@ int check_five(int x, int y)
 
 	for(i = 1; i < 5; i++)          // to down_right
 	{
+		if((Size_X-x < 5) || (Size_Y-y < 5))
+		{
+			break;
+		}
 		if(point_state[x + y*Size_X] == point_state[x + i + (y+i)*Size_X])
 		{
 			counter++;
@@ -97,6 +105,10 @@ int check_five(int x, int y)
 
 	for(i = 1; i < 5; i++)          // to up_right
 	{
+		if((Size_X-x < 5) || y<4)
+		{
+			break;
+		}
 		if(point_state[x + y*Size_X] == point_state[x + i + (y-i)*Size_X])
 		{
 			counter++;
@@ -125,9 +137,9 @@ int check_all(void)
 	{
 		for(j = 0; j < Size_X; j++)
 		{
-			if(check_five(i,j) != 0)
+			if(check_five(j,i) != 0)
 			{
-				printf(" ......1 is black, 2 is white .This time %d won........\n",check_five(i,j));
+				printf(" ......1 is black, 2 is white .This time %d won........\n",check_five(j,i));
 				return 1;
 			}
 		}

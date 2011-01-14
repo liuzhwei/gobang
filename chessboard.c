@@ -19,6 +19,25 @@ void print_board(u32_t color)
 
 
 
+
+void print_circle(int x1, int y1, int r, u32_t color)
+{
+	int i = 0, j = 0;
+	
+	for(i = x1-r; i <= x1+r; i++)
+	{
+		for(j = y1-r; j <= y1+r; j++)
+		{
+			if((x1-i)*(x1-i) + (y1-j)*(y1-j) <= r*r)
+			{
+				fb_one_pixel(i,j,color);
+			}
+		}
+	}
+
+}
+
+
 /* *
    * in this function, when we get a radom location.
    * we must correct the location to our chessmap line.
@@ -28,7 +47,6 @@ void print_board(u32_t color)
    * */
 void print_chessman(int x, int y, int r, u32_t color)
 {
-	int i = 0, j = 0;
 	int x1 = 0, y1 = 0;
 
 	if(x > Starting_X-Space/2 && x < Starting_X+Size_X*Space-Space/2 && 
@@ -37,18 +55,10 @@ void print_chessman(int x, int y, int r, u32_t color)
 		x1 = (x - Starting_X + Space/2) / Space * Space + Starting_X;
 		y1 = (y - Starting_Y + Space/2) / Space * Space + Starting_Y;
 
-		for(i = x1-r; i <= x1+r; i++)
-		{
-			for(j = y1-r; j <= y1+r; j++)
-			{
-				if((x1-i)*(x1-i) + (y1-j)*(y1-j) <= r*r)
-				{
-					fb_one_pixel(i,j,color);
-				}
-			}
-		}
+		print_circle(x1,y1,r,color);
 	}
 }
+
 
 
 

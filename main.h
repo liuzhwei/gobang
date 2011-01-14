@@ -43,6 +43,7 @@ extern void drow_background(u32_t color);
 extern int draw_cursor(int x, int y);
 extern int restore_shape(int x, int y);
 extern void print_chessman(int x, int y, int r, u32_t color);
+extern void print_circle(int x1, int y1, int r, u32_t color);
 
 
 extern int mouse_doing(void);
